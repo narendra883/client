@@ -11,3 +11,46 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container{
+  display: flex;
+}
+.box{
+  background: white;
+  border-radius: 2rem;
+  border: rgb(53, 53, 53) 0.1rem solid;
+  border-color: rgb(163, 163, 163);
+  text-align: center;
+}
+.data{
+  margin-left:40px ;
+}
+
+.box-1{
+  background: white;
+  border-radius: 2rem;
+  border: rgb(53, 53, 53) 0.1rem solid;
+  border-color: rgb(163, 163, 163);
+  text-align: center;
+}
+
+/* EmployeeTable.css */
+
+.table-container{
+  margin-top: 10%;
+}
+
+.employee-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.employee-table th, .employee-table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.employee-table th {
+  background-color: #f2f2f2;
+}
