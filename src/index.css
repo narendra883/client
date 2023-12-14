@@ -14,6 +14,8 @@ code {
 
 .container{
   display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
 }
 .box{
   background: white;
@@ -32,6 +34,13 @@ code {
   border: rgb(53, 53, 53) 0.1rem solid;
   border-color: rgb(163, 163, 163);
   text-align: center;
+}
+.chart-text{
+  text-align: center;
+}
+#chart-container{
+  display: flex;
+  justify-content: center;
 }
 
 /* EmployeeTable.css */
@@ -53,4 +62,15 @@ code {
 
 .employee-table th {
   background-color: #f2f2f2;
+}
+
+.pagination-btn{
+  display: flex;
+  border-radius: 50%;
+  background-color: rgb(115, 0, 255);
+  align-items: center;
+  color:white;
+  font-size: 20px;
+  margin:20px auto;
+  padding: 10px;
 }

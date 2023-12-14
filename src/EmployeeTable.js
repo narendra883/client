@@ -1,54 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
-const EmployeeTable = () => {
-    const [employees, setEmployee] = useState([]);
-    const [error, setError] = useState(null);
+const EmployeeTable = (props) => {
+  const { data, itemsPerPage = 10 } = props;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/employees');
-                setEmployee(response.data);
-            } catch (error) {
-                // Handle Axios error
-                setError(error);
-            }
-        };
+  const [currentPage, setCurrentPage] = useState(1);
 
-        fetchData();
-    }, []); // Empty dependency array ensures useEffect runs once on component mount
+  // Calculate the indexes of the items to display for the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-    return (
-        <div>
-            <div className='table-container'>
-                {error ? (
-                    <p>Error loading data: {error.message}</p>
-                ) : (
-                    <table className="employee-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Department</th>
-                                <th>Position</th>
-                                <th>Salary</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {employees.map((employee) => (
-                                <tr key={employee.id}>
-                                    <td>{employee.name}</td>
-                                    <td>{employee.department}</td>
-                                    <td>{employee.position}</td>
-                                    <td>{employee.salary}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-        </div>
-    );
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  return (
+    <div>
+      <div className='table-container'>
+        <table className="employee-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Position</th>
+              <th>Salary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems.map((employee) => (
+              <tr key={employee.id}>
+                <td>{employee.name}</td>
+                <td>{employee.department}</td>
+                <td>{employee.position}</td>
+                <td>{employee.salary}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(data.length / itemsPerPage) }).map((_, index) => (
+          <button className='pagination-btn' key={index + 1} onClick={() => paginate(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default EmployeeTable;
